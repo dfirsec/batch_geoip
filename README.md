@@ -12,20 +12,28 @@ Sources:
 - *ipgeolocation.io*
 - *ip-api.com*
 
-# Installation
+# Recommended Installation & Usage
 
 ```text
-git clone https://github.com/dfirsec/batch_geoip.git
-cd batch_geoip
-pip install -r requirements.txt
+$ pip install pipenv
+$ cd batch_geoip
+$ pipenv install
+$ pipenv shell
+
+$ python batch_geoip.py 68.66.224.31
 ```
 
-# Usage
+# Alternate Installation & Usage
+
+```text
+$ git clone https://github.com/dfirsec/batch_geoip.git
+$ cd batch_geoip
+$ pip install -r requirements.txt
+
+$ python batch_geoip.py 68.66.224.31
+```
 
 ```console
-$ python batch_geoip.py 68.66.224.31
-
-
 Freegeoip Results
 --------------------------------------------------
 Ip             : 68.66.224.31
