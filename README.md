@@ -4,6 +4,8 @@
 
 Python script to gather IP address geolocation information from different geolocation services.
 
+Results are written to console and file (geo_results.txt).
+
 Sources:
 - *freegeoip.live*
 - *tools.keycdn.com*
