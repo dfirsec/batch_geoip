@@ -15,7 +15,8 @@ Sources:
 # Recommended Installation & Usage
 
 ```text
-$ pip install pipenv
+$ pip install -U pipenv
+$ git clone https://github.com/dfirsec/batch_geoip.git
 $ cd batch_geoip
 $ pipenv install
 $ pipenv shell
