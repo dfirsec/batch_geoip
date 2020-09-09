@@ -1,7 +1,7 @@
+import ipaddress
 import sys
 
 import requests
-import urllib3
 from bs4 import BeautifulSoup
 from colorama import Fore, Style, init
 
@@ -14,12 +14,17 @@ RED = Fore.RED
 RESET = Fore.RESET
 YELLOW = Fore.YELLOW
 
-host = ''
+# host = ''
 if len(sys.argv) < 2:
     sys.exit(f"{RED}[ERROR]{RESET} You forgot to include the host address.")
 else:
     host = sys.argv[1]
 
+# check if valid ip
+try:
+    ipaddress.ip_address(host) or ipaddress.ip_network(host)
+except ValueError as err:
+    sys.exit(f"{RED}[ERROR]{RESET} {err}")
 
 # freegeoip.live
 try:
@@ -37,7 +42,7 @@ except Exception as err:
 
 # tools.keycdn.com
 try:
-    kc_url = requests.get(f'https://tools.keycdn.com/geo.json?host={host}').json()  #nopep8
+    kc_url = requests.get(f'https://tools.keycdn.com/geo.json?host={host}').json()  # nopep8
     print(f"\n{CYAN}KeyCDN Results{RESET}\n{('-' * 50)}")
     with open("geo_results.txt", 'a') as f:
         f.write(f"\nKeyCDN Results\n{('-' * 50)}\n")
@@ -75,7 +80,7 @@ try:
                 continue
 except Exception as err:
     print(err)
-    
+
 # ip-api
 try:
     ipapi_url = requests.get(f'http://ip-api.com/json/{host}').json()  # nopep8
