@@ -15,13 +15,13 @@ Sources:
 # Recommended Installation & Usage
 
 ```text
-$ pip install -U pipenv
-$ git clone https://github.com/dfirsec/batch_geoip.git
-$ cd batch_geoip
-$ pipenv install
-$ pipenv shell
+pip install -U pipenv
+git clone https://github.com/dfirsec/batch_geoip.git
+cd batch_geoip
+pipenv install
+pipenv shell
 
-$ python batch_geoip.py 68.66.224.31
+python batch_geoip.py 68.66.224.31
 ```
 
 # Alternate Installation & Usage

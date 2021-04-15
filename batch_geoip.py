@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 
 import requests
-from bs4 import BeautifulSoup
 from colorama import Fore, init
 
 # Console Colors
@@ -25,8 +24,7 @@ class Batch_Worker:
         self.ipg_url = f"https://ipgeolocation.io/ip-location/{self.host}"
         self.ipapi_url = f"http://ip-api.com/json/{self.host}"
 
-    @staticmethod
-    def connect(url):
+    def connect(self, url):
         headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36"
         }
@@ -60,33 +58,6 @@ class Batch_Worker:
                     print(f"{k.title().replace('_', ' '):15}: {v}")
                     with open(self.geo_results, "a") as f:
                         f.write(f"{k.title().replace('_', ' '):15}: {v}\n")
-        except Exception as err:
-            print(err)
-
-        # ipgeolocation.io
-        try:
-            ipg = self.connect({self.ipg_url}).text
-            soup = BeautifulSoup(ipg, "lxml")
-            tb = soup.find_all("table")[0]
-            tb_data = tb.tbody.find_all("tr")
-
-            data = dict()
-            for td in tb_data:
-                k = td.find_all("td")[0].text.strip()
-                v = td.find_all("td")[1].text.strip()
-                data[k] = v
-
-            print(f"\n{CYAN}IP Geolocation Results{RESET}\n{('-' * 50)}")
-            with open(self.geo_results, "a") as f:
-                f.write(f"\nIP Geolocation Results\n{('-' * 50)}\n")
-            for k, v in data.items():
-                if v:
-                    try:
-                        print(f"{k:35}: {v}")
-                        with open(self.geo_results, "a") as f:
-                            f.write(f"{k:35}: {v}\n")
-                    except Exception:
-                        continue
         except Exception as err:
             print(err)
 
