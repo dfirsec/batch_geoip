@@ -24,7 +24,8 @@ class Batch_Worker:
         self.ipg_url = f"https://ipgeolocation.io/ip-location/{self.host}"
         self.ipapi_url = f"http://ip-api.com/json/{self.host}"
 
-    def connect(self, url):
+    @staticmethod
+    def connect(url):
         headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36"
         }
