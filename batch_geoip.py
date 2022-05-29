@@ -14,7 +14,7 @@ RESET = Fore.RESET
 YELLOW = Fore.YELLOW
 
 
-class Batch_Worker:
+class BatchWorker:
     def __init__(self, host):
         self.host = host
         self.parent = Path(__file__).resolve().parent
@@ -29,20 +29,19 @@ class Batch_Worker:
         headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36"
         }
-        req = requests.get(f"{url}", headers=headers)
-        return req
+        return requests.get(f"{url}", headers=headers)
 
     def process(self):
         # freegeoip.live
         try:
             fg_url = self.connect(self.fg_url).json()
             print(f"\n{CYAN}Freegeoip Results{RESET}\n{('-' * 50)}")
-            with open(self.geo_results, "w") as f:
+            with open(self.geo_results, "w", encoding="utf-8") as f:
                 f.write(f"\nFreegeoip Results\n{('-' * 50)}\n")
             for k, v in fg_url.items():
                 if v:
                     print(f"{k.title().replace('_', ' '):15}: {v}")
-                    with open(self.geo_results, "a") as f:
+                    with open(self.geo_results, "a", encoding="utf-8") as f:
                         f.write(f"{k.title().replace('_', ' '):15}: {v}\n")
         except Exception as err:
             print(err)
@@ -52,12 +51,12 @@ class Batch_Worker:
             headers = {"User-Agent": f"keycdn-tools:https://{self.host}"}
             kc_url = requests.get(self.kc_url, headers=headers).json()
             print(f"\n{CYAN}KeyCDN Results{RESET}\n{('-' * 50)}")
-            with open("geo_results.txt", "a") as f:
+            with open("geo_results.txt", "a", encoding="utf-8") as f:
                 f.write(f"\nKeyCDN Results\n{('-' * 50)}\n")
             for k, v in kc_url["data"]["geo"].items():
                 if v:
                     print(f"{k.title().replace('_', ' '):15}: {v}")
-                    with open(self.geo_results, "a") as f:
+                    with open(self.geo_results, "a", encoding="utf-8") as f:
                         f.write(f"{k.title().replace('_', ' '):15}: {v}\n")
         except Exception as err:
             print(err)
@@ -66,12 +65,12 @@ class Batch_Worker:
         try:
             ipapi_url = self.connect(self.ipapi_url).json()
             print(f"\n{CYAN}IP-API Results{RESET}\n{('-' * 50)}")
-            with open(self.geo_results, "a") as f:
+            with open(self.geo_results, "a", encoding="utf-8") as f:
                 f.write(f"\nIP-API Results\n{('-' * 50)}\n")
             for k, v in ipapi_url.items():
                 if v:
                     print(f"{k.title():15}: {v}")
-                    with open(self.geo_results, "a") as f:
+                    with open(self.geo_results, "a", encoding="utf-8") as f:
                         f.write(f"{k.title():15}: {v}\n")
         except Exception as err:
             print(err)
@@ -85,11 +84,11 @@ def main():
 
     # check if valid ip
     try:
-        ipaddress.ip_address(host) or ipaddress.ip_network(host)
+        bool(ipaddress.ip_address(host) or ipaddress.ip_network(host))
     except ValueError as err:
         sys.exit(f"{RED}[ERROR]{RESET} {err}")
 
-    worker = Batch_Worker(host)
+    worker = BatchWorker(host)
     worker.process()
 
 
