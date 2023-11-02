@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "batch-geoip"
+version = "0.1.0"
+description = "Batch GeoIP Lookup."
+authors = ["Mitch Haddadi <12067255+dfirsec@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+beautifulsoup4 = "^4.12.2"
+colorama = "^0.4.6"
+lxml = "^4.9.3"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
